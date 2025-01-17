@@ -27,78 +27,66 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        // Gọi phương thức tạo mảng ngẫu nhiên
-        ArrayList<Integer> numbers = generateRandomNumbers(10, 1, 100);
-
-        // Phân loại số chẵn và số lẻ
-        ArrayList<Integer> evenNumbers = new ArrayList<>();
-        ArrayList<Integer> oddNumbers = new ArrayList<>();
-
-        for (int number : numbers) {
-            if (number % 2 == 0) {
-                evenNumbers.add(number);
-            } else {
-                oddNumbers.add(number);
-            }
-        }
-
-        // In ra Log.d
-        Log.d(TAG, "Số chẵn: " + evenNumbers);
-        Log.d(TAG, "Số lẻ: " + oddNumbers);
+        InChanLe();
 
         // Ánh xạ các View
-        EditText editTextInput = findViewById(R.id.etInput);
-        Button buttonProcess = findViewById(R.id.btnXuLy);
-        TextView textViewOutput = findViewById(R.id.txtOutput);
+        EditText etInput = findViewById(R.id.etInput);
+        Button btnXuLy = findViewById(R.id.btnXuLy);
+        TextView txtOutput = findViewById(R.id.txtOutput);
 
         // Xử lý khi nhấn nút
-        buttonProcess.setOnClickListener(new View.OnClickListener() {
+        btnXuLy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Lấy chuỗi từ EditText
-                String input = editTextInput.getText().toString();
+                String input = etInput.getText().toString();
 
-                // Kiểm tra nếu chuỗi rỗng
                 if (input.isEmpty()) {
                     Toast.makeText(MainActivity.this, "Vui lòng nhập chuỗi", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                // Tách chuỗi thành các từ
                 String[] words = input.split(" ");
 
-                // Đảo ngược thứ tự các từ
                 StringBuilder reversed = new StringBuilder();
                 for (int i = words.length - 1; i >= 0; i--) {
                     reversed.append(words[i]).append(" ");
                 }
 
-                // Loại bỏ khoảng trắng thừa ở cuối
                 String result = reversed.toString().trim();
 
-                // Chuyển chuỗi đảo ngược thành chữ in hoa
                 String upperReversed = result.toUpperCase();  // Chuyển result (String) thành chữ in hoa
 
-                // Hiển thị kết quả lên TextView
-                textViewOutput.setText(upperReversed);
+                txtOutput.setText(upperReversed);
 
-                // Hiển thị thông báo Toast
                 Toast.makeText(MainActivity.this, "Chuỗi đảo ngược và in hoa: " + upperReversed, Toast.LENGTH_SHORT).show();
             }
         });
 
     }
 
-    // Hàm tạo mảng số ngẫu nhiên
-    private ArrayList<Integer> generateRandomNumbers(int size, int min, int max) {
+    public void InChanLe () {
+        ArrayList<Integer> numbers = TaoSoNgauNhien(10, 1, 100);
+
+        ArrayList<Integer> soChan = new ArrayList<>();
+        ArrayList<Integer> soLe = new ArrayList<>();
+
+        for (int number : numbers) {
+            if (number % 2 == 0) {
+                soChan.add(number);
+            } else {
+                soLe.add(number);
+            }
+        }
+        Log.d(TAG, "Danh sách số chẵn: " + soChan);
+        Log.d(TAG, "Danh sách số lẻ: " + soLe);
+    }
+    private ArrayList<Integer> TaoSoNgauNhien(int size, int min, int max) {
         ArrayList<Integer> numbers = new ArrayList<>();
         Random random = new Random();
-
         for (int i = 0; i < size; i++) {
-            int randomNumber = random.nextInt((max - min) + 1) + min; // Sinh số ngẫu nhiên trong phạm vi từ min đến max
-            numbers.add(randomNumber);
+            int soNgauNhien = random.nextInt((max - min) + 1) + min;
+            numbers.add(soNgauNhien);
         }
-
         return numbers;
     }
 }
