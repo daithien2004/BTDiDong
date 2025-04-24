@@ -63,7 +63,6 @@ public class ImageActivity extends AppCompatActivity {
     private Uri mUri;
     private ProgressDialog mProgressDialog;
     public static final int MY_REQUEST_CODE = 100;
-    public static final String TAG = MainActivity.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +105,6 @@ public class ImageActivity extends AppCompatActivity {
 
         // Create RequestBody instance from file
         String IMAGE_PATH = RealPathUtil.getRealPath(this, mUri);
-        Log.e(TAG, IMAGE_PATH);
 
         File file = new File(IMAGE_PATH);
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);

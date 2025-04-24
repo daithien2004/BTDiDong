@@ -1,7 +1,9 @@
 package com.example.bt09;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,8 +28,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ProfileActivity extends AppCompatActivity {
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +41,15 @@ public class ProfileActivity extends AppCompatActivity {
         TextView tvEmail = findViewById(R.id.tvEmail);
         TextView tvGender = findViewById(R.id.tvGender);
         Button btnLogout = findViewById(R.id.btnLogout);
+
+        imgProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileActivity.this, UploadActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         String imageUrl = getIntent().getStringExtra("imageUrl");
         if (imageUrl != null && !imageUrl.isEmpty()) {

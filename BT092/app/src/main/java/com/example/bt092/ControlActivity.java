@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.graphics.Insets;
@@ -52,6 +53,8 @@ public class ControlActivity extends AppCompatActivity {
         txtMAC = (TextView) findViewById(R.id.textViewMAC);
         btnDis = (ImageButton) findViewById(R.id.btnDisc);
 
+        txtMAC.setText(address);
+
         new ConnectBT().execute();
         btnTb1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,15 +73,13 @@ public class ControlActivity extends AppCompatActivity {
 
     }
 
-
-
     //viet hàm
     private void thietTbil() {
         if (btSocket != null) {
             try {
                 if (this.flaglamp1 == 0) {
                     this.flaglamp1 = 1;
-                    this.btnTb1.setBackgroundResource(R.drawable.me);
+                    this.btnTb1.setBackgroundResource(R.drawable.tb1on);
                     btSocket.getOutputStream().write("1".toString().getBytes());
                     txt1.setText("Thiết bị số 1 đang bật");
                     return;
@@ -86,7 +87,7 @@ public class ControlActivity extends AppCompatActivity {
                     if (this.flaglamp1 != 1) return;
                     {
                         this.flaglamp1 = 0;
-                        this.btnTb1.setBackgroundResource(R.drawable.abc);
+                        this.btnTb1.setBackgroundResource(R.drawable.tb1off);
                         btSocket.getOutputStream().write("A".toString().getBytes());
                         txt1.setText("Thiết bị số 1 đang tắt");
                         return;
@@ -103,7 +104,7 @@ public class ControlActivity extends AppCompatActivity {
             try {
                 if (this.flaglamp2 == 0) {
                     this.flaglamp2 = 1;
-                    this.btnTb2.setBackgroundResource(R.drawable.me);
+                    this.btnTb2.setBackgroundResource(R.drawable.tb7on);
                     btSocket.getOutputStream().write("7".toString().getBytes());
                     txt1.setText("Thiết bị số 7 đang bật");
                     return;
@@ -111,7 +112,7 @@ public class ControlActivity extends AppCompatActivity {
                     if (this.flaglamp2 != 1) return;
                     {
                         this.flaglamp2 = 0;
-                        this.btnTb2.setBackgroundResource(R.drawable.abc);
+                        this.btnTb2.setBackgroundResource(R.drawable.tb7off);
                         btSocket.getOutputStream().write("G".toString().getBytes());
                         txt1.setText("Thiết bị số 7 đang tắt");
                         return;
@@ -182,12 +183,14 @@ public class ControlActivity extends AppCompatActivity {
             }
             progress.dismiss();
         }
+
+
     }
 
     private void pairedDevicesList1() {
 
         if (ActivityCompat.checkSelfPermission(this
-                , android.Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                , android.Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED) {
             pairedDevices1 = myBluetooth.getBondedDevices();
 
             if (pairedDevices1.size() > 0) {
