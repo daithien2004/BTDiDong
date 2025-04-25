@@ -1,5 +1,6 @@
 package com.example.videoshortfirebase2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
@@ -43,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
                 videosAdapter = new VideosAdapter(getApplicationContext(), list);
                 viewPager2.setOrientation(ViewPager2.ORIENTATION_VERTICAL);
                 viewPager2.setAdapter(videosAdapter);
+
+                Intent intent = new Intent(MainActivity.this, ItemVideoActivity.class);
+                intent.putExtra("video_url", list.get(0).getUrl());
+                startActivity(intent);
             }
 
             @Override

@@ -43,6 +43,7 @@ public class NotesAdapter extends BaseAdapter {
         ImageView imageViewEdit ;
         ImageView imageViewDelete;
     }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         //gọi viewHolder
